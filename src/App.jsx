@@ -1,6 +1,8 @@
 // archivo App.jsx
 // ✅ Importamos dependencias y componentes
-import React from 'react';
+//para optimizar las cargas en GitHub Pages utilizamos lazy, suspense
+// import React from 'react';
+import React, { lazy, Suspense } from 'react'; 
 // ❌ Esta línea es la que causa el problema. La eliminamos.
 // import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // ✅ Usamos HashRouter en su lugar para que las rutas funcionen en GitHub Pages.
@@ -17,7 +19,10 @@ import Proyectos from "./components/Proyectos";
 import Intereses from "./components/Intereses";
 import Footer from "./components/Footer";
 
-import Recursos from "./pages/Recursos";
+// ❌ ELIMINA la importación normal de Recursos: 
+// para optimizar las cargas en GitHub Pages utilizamos lazy
+//import Recursos from "./pages/Recursos";
+const Recursos = lazy(() => import('./pages/Recursos'));// carga diferida
 
 import './App.css';
 
@@ -105,7 +110,14 @@ function App() {
       {/* Las rutas se gestionan con <Routes> y <Route> */}
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/recursos" element={<Recursos />} />
+        {/* ✅ Envuelve la ruta de Recursos en <Suspense> */}
+        <Route 
+            path="/recursos" element={
+              <Suspense fallback={<div>Cargando recursos...</div>}>
+                <Recursos />
+              </Suspense>
+            } 
+        />
       </Routes>
     </HashRouter>
   );
