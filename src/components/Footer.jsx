@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Container, Row, Col, Form, Modal } from "react-bootstrap";
 import Boton from "./Boton";
 import imagelogo from "../assets/logo.png";
@@ -127,24 +128,41 @@ const Footer = () => {
 						<hr />
 						<ul className="list-unstyled">
 							<li>
-								<a href="/recursos?slide=0" className="text-light text-decoration-none">
+								{/* ✅ Usamos Link y le pasamos el "state" en lugar del query param */}
+								<Link
+									to="/recursos"
+									className="text-light text-decoration-none"
+									state={{ slide: 0 }}
+								>
 									Arquitectura del proyecto
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a href="/recursos?slide=1" className="text-light text-decoration-none">
+								<Link
+									to="/recursos"
+									className="text-light text-decoration-none"
+									state={{ slide: 1 }}
+								>
 									Codigo Limpio
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a href="/recursos?slide=2" className="text-light text-decoration-none">
+								<Link
+									to="/recursos"
+									className="text-light text-decoration-none"
+									state={{ slide: 2 }}
+								>
 									Errores & Fixes
-								</a>
+								</Link>
 							</li>
 							<li>
-								<a href="/recursos?slide=3" className="text-light text-decoration-none">
+								<Link
+									to="/recursos"
+									className="text-light text-decoration-none"
+									state={{ slide: 3 }}
+								>
 									Herramientas esenciales
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</Col>

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom"; 
 import { Container, Row, Col, Button } from "react-bootstrap";
 
 import { Navigation, Pagination, A11y } from 'swiper/modules';
@@ -54,21 +55,22 @@ const Recursos = () => {
   // -----------------------------
   const toggleAside = () => setIsOpen(!isOpen);
 
-  // -----------------------------
-  // useEffect para abrir el slide correcto desde el footer
-  // 1. Leemos el query param ?slide=N
-  // 2. Convertimos a número
-  // 3. Llamamos a swiper.slideTo(index)
-  // Esto hace que si el usuario viene desde el footer, se abra el slide correspondiente automáticamente
-  // -----------------------------
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const slideIndex = parseInt(params.get("slide"), 10);
+  const location = useLocation(); 
 
-    if (!isNaN(slideIndex) && swiperRef.current) {
-      swiperRef.current.slideTo(slideIndex); // Mueve Swiper al slide correcto
+   // -----------------------------
+    // useEffect para abrir el slide correcto desde el footer (CORREGIDO)
+    // 1. Leemos el 'state' de useLocation.
+    // 2. Si existe un 'slide' en el estado, movemos el Swiper.
+    // -----------------------------
+  useEffect(() => {
+    const slideIndex = location.state?.slide;
+
+    if (typeof slideIndex === 'number' && swiperRef.current) {
+      setTimeout(() => {
+        swiperRef.current.slideTo(slideIndex); // Mueve Swiper al slide correcto
+      }, 50); // Pequeño retraso para asegurar que Swiper esté listo
     }
-  }, []);
+  }, [location.state, swiperRef]); // Se ejecuta cada vez que cambia el estado o la referencia
 
   // -----------------------------
   // Función para manejar click en un recurso del aside
