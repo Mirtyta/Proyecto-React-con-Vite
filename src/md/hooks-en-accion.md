@@ -1,4 +1,4 @@
-# 🪝 Hooks en Acción: Menú Dinámico
+# ⚛️ Hooks en Acción: Menú Dinámico
 
 Para hacer que mi sitio fuera más dinámico, decidí que el menú principal (la `navbar`) se ocultara o mostrara según el scroll del usuario. Esto fue un gran desafío al principio, pero me ayudó a entender la mecánica de los **Hooks** de React.
 
